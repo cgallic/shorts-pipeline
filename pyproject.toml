@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shorts-pipeline"
+version = "0.1.0"
+description = "Daily multi-channel YouTube Shorts pipeline — slice long-take video, generate overlay copy via local LLM, mix per-channel music, deliver atomically."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Connor Gallic" }]
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+shorts-pipeline = "shorts_pipeline.auto_shorts_channels:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

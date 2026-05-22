@@ -1,0 +1,13 @@
+[Unit]
+Description=Daily multi-channel shorts pipeline (timer)
+
+[Timer]
+# Daily at 09:00 UTC (= 04:00 EST / 05:00 EDT / 11:00 CEST). Adjust to your timezone.
+OnCalendar=*-*-* 09:00:00 UTC
+# Run on next start if a fire was missed (e.g. host was down)
+Persistent=true
+# Jitter to avoid stampeding if multiple hosts share infrastructure
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

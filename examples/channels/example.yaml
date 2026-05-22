@@ -1,0 +1,61 @@
+# Example channel config.
+#
+# Copy to $SHORTS_CHANNELS_DIR/<your-channel>.yaml and fill in. The filename
+# stem becomes the channel slug used in `shorts-pipeline --channel <slug>`.
+
+# ─── Identity ─────────────────────────────────────────────────────────────
+channel: example
+brand: Example Brand
+
+# ─── Filesystem (all paths absolute; under $SHORTS_PIPELINE_ROOT) ─────────
+output_dir:        /srv/shorts-pipeline/output/example
+forehead_pool:     /srv/shorts-pipeline/forehead-source       # shared across channels
+music_pool:        /srv/shorts-pipeline/music-pools/example   # per-channel
+history_db:        /srv/shorts-pipeline/history/example.db    # per-channel
+
+# ─── Cadence ──────────────────────────────────────────────────────────────
+shorts_per_day: 6
+clip_duration_s: 6
+
+# ─── Copy generation ──────────────────────────────────────────────────────
+voice_prompt_file:   /srv/shorts-pipeline/prompts/example-voice.md
+topic_universe_file: /srv/shorts-pipeline/prompts/example-topics.txt
+
+# (Alternative — dual-ICP marketplace:)
+# topic_universe:
+#   buyer:  /srv/shorts-pipeline/prompts/example-buyer-topics.txt
+#   seller: /srv/shorts-pipeline/prompts/example-seller-topics.txt
+# icp_split:
+#   buyer: 3
+#   seller: 3       # must sum to shorts_per_day
+
+# ─── Voice guardrails ────────────────────────────────────────────────────
+# Phrases Qwen will never write. Include AI tells you've seen + brand-forbidden terms.
+forbidden_phrases:
+  - "leverage"
+  - "solution"
+  - "synergy"
+  - "transform your business"
+  - "in conclusion"
+  - "it's worth noting"
+
+# CTAs Qwen picks from per caption. Use comment-keyword form for engagement.
+cta_pool:
+  - 'comment "demo" for the walkthrough'
+  - 'comment "demo" for the pricing sheet'
+  - 'comment "demo" for the case study'
+
+# Hashtag bag appended to every caption (stays consistent per brand).
+hashtag_set:
+  - "#yourbrand"
+  - "#yourcategory"
+
+# Stats Qwen may cite verbatim. NEVER invent numbers — only what you list here.
+# Empty list is fine (Qwen will just not cite specific numbers).
+stats_to_cite:
+  - "3x lift in conversion last quarter"
+  - "Replaced a 4-person team with one config file"
+  - "Average ticket resolution: 14 minutes vs 2 hours pre-deploy"
+
+# ─── Render style ────────────────────────────────────────────────────────
+overlay_style: dense       # only "dense" is implemented in v0.1

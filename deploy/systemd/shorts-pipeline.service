@@ -1,0 +1,25 @@
+[Unit]
+Description=Daily multi-channel shorts pipeline
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+
+# CHANGE these three lines to match your install ------------------------------
+User=connor
+WorkingDirectory=/srv/shorts-pipeline/repo
+EnvironmentFile=/srv/shorts-pipeline/.env
+# -----------------------------------------------------------------------------
+
+# Use the venv that pip-installed shorts-pipeline (`pip install -e .`)
+ExecStart=/srv/shorts-pipeline/.venv/bin/shorts-pipeline
+
+# Logging — also goes to journalctl -u shorts-pipeline.service
+StandardOutput=append:/srv/shorts-pipeline/logs/shorts-pipeline.log
+StandardError=append:/srv/shorts-pipeline/logs/shorts-pipeline.log
+
+TimeoutStartSec=1800
+
+[Install]
+WantedBy=multi-user.target

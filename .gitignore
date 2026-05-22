@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Runtime state — never commit
+.env
+*.db
+*.sqlite
+*.sqlite3
+
+# Pipeline working dirs (configured via SHORTS_PIPELINE_ROOT — never the repo itself)
+output/
+forehead-source/
+music-pools/
+history/
+logs/
+dry-run/
+.staging/
+
+# Media — keep the repo lean, big media lives outside
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.aac
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
