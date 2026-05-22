@@ -384,6 +384,42 @@ What's deliberately not in v0.1, and where to find it on the upstream:
 
 See [docs/extraction-status.md](docs/extraction-status.md) for a per-file accounting.
 
+## Where this fits with other OSS video tools
+
+This repo is intentionally narrow — it owns the **orchestration pattern** (multi-channel + LLM-driven copy + cross-channel dedup + atomic delivery), not generic video editing. For the surrounding work, point at existing tools at each seam:
+
+### Upstream — preparing your `forehead-source/`
+
+- **[Auto-Editor](https://github.com/WyattBlue/auto-editor)** — silence-strips long-take footage by volume threshold or via a paired transcript. Recommended pre-step for talking-head sources before they hit `forehead-source/`. `pip install auto-editor`, then:
+  ```
+  auto-editor my-long-take.mp4 --margin 0.2sec --output-file my-long-take.cleaned.mp4
+  ```
+  (Bonus: Auto-Editor uses ffmpeg under the hood, same as this pipeline — no new system deps.)
+
+- **[OBS Studio](https://obsproject.com/)** — for capturing the long takes in the first place. No magic here, just the standard way to record clean 1080p+ talking-head.
+
+### Sidestream — alternative input modes (call recordings, podcasts, etc.)
+
+- **[WhisperX](https://github.com/m-bain/whisperX)** — Whisper + forced word-level alignment + speaker diarization in one CLI. Use it to slice a podcast or sales call into speaker-aligned segments that you then feed into this pipeline's render step. (Diarization requires a Hugging Face token + accepting pyannote's model terms.)
+
+- **[pyannote-audio](https://github.com/pyannote/pyannote-audio)** — the underlying speaker diarization library if you want finer control than WhisperX gives.
+
+- **[faster-whisper](https://github.com/SYSTRAN/faster-whisper)** — CTranslate2-backed Whisper, much faster on GPU. Useful if you're transcribing your own forehead takes to use Auto-Editor's transcript mode.
+
+### Downstream — branded promo / explainer videos (different shape, not this repo's job)
+
+- **[Remotion](https://www.remotion.dev/)** — programmatic React video. The right tool when you need *deterministic, brand-controlled* video (sales explainers, feature trailers, ad variants) rather than overlay-on-footage. See the official templates: https://www.remotion.dev/templates
+- **[Manim](https://www.manim.community/)** — for math/animation explainers à la 3Blue1Brown.
+- **[p5.js](https://p5js.org/) / [Three.js](https://threejs.org/) / [D3](https://d3js.org/)** — for one-off animated explainers / illustrative scenes that you screen-record into an MP4.
+
+### Posting — the watcher side
+
+This pipeline writes `.mp4 + .txt` pairs into a folder. What watches that folder is on you:
+
+- **[Repurpose.io](https://repurpose.io/)** — the watcher this pipeline was originally built against. Polls a Drive / Dropbox folder, posts to TikTok/Reels/Shorts.
+- **[Buffer](https://buffer.com/) / [Hootsuite](https://hootsuite.com/)** — similar, with manual review queues.
+- Manual: open the folder once a day and upload what you like.
+
 ## Origin
 
 Originally built as `scripts/shorts_pipeline/` inside a larger marketing-knowledge-base monorepo for a single brand (KaiCalls — an AI phone secretary). When two more channels joined, the pipeline was rewritten to be config-driven; this extraction is that rewrite, with brand-specific data swapped for templates so other people can use it.
