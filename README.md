@@ -276,13 +276,18 @@ The bundled helper `generate_music_pool.py` wraps the ElevenLabs Music API. Pre-
 
 ```bash
 python -m shorts_pipeline.generate_music_pool \
-  --channel myfirstchannel \
   --out-dir $SHORTS_PIPELINE_ROOT/music-pools/myfirstchannel \
   --count 10 \
   --prompt "warm lo-fi piano, 90 bpm, no vocals, 30 seconds"
+
+# Or sample from a prompts file (one prompt per line; pool gets variety):
+python -m shorts_pipeline.generate_music_pool \
+  --out-dir $SHORTS_PIPELINE_ROOT/music-pools/myfirstchannel \
+  --count 10 \
+  --prompts-file /srv/shorts-pipeline/prompts/myfirstchannel-music-prompts.txt
 ```
 
-(In v0.1 the music tool is referenced but not bundled — see [Status & roadmap](#status--roadmap). For now drop your own MP3s in.)
+Requires `ELEVENLABS_API_KEY` in your `.env`. Each track costs ~$0.30 on ElevenLabs Music; 10 tracks per channel is a one-time ~$3 spend.
 
 ### Folder-watching delivery
 

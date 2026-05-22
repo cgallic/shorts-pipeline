@@ -26,7 +26,7 @@ Smaller additions that round out the production setup.
 
 | File / feature | Upstream | Notes |
 | --- | --- | --- |
-| `generate_music_pool.py` | `scripts/shorts_pipeline/generate_music_pool.py` | Wraps the ElevenLabs Music API. Needs `ELEVENLABS_API_KEY`. Vanilla one-shot script, easy to drop in. |
+| ~~`generate_music_pool.py`~~ | `scripts/shorts_pipeline/generate_music_pool.py` | ✅ Shipped in v0.1.1. Hardcoded per-brand prompt dict swapped for `--prompt` / `--prompts-file` args. |
 | Windows pull script | external — `scout-media-dev/scripts/shorts-pipeline-pull/pull-from-agent.ps1` | scp from agent → Drive every 30 min, with source-side orphan quarantine. Reference impl; users with different sync setups (rclone, Syncthing, just-leave-it-local) won't need it. |
 | Tests | `scripts/shorts_pipeline/tests/` | 13 unit tests in upstream covering config/history/cut_picker/sidecar/qwen_client. Need path-fixtures to run outside the upstream layout. |
 | `pyproject.toml` extras (`[project.optional-dependencies]`) | new | `[dev]` for pytest, `[music]` for ElevenLabs SDK, `[mascot]` for v0.3. |

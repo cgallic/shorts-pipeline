@@ -1,3 +1,6 @@
 pyyaml>=6.0
 requests>=2.31
 python-dotenv>=1.0
+
+# Already covered by deps above; listed for clarity:
+# - python-dotenv is used by generate_music_pool to load ELEVENLABS_API_KEY
