@@ -427,3 +427,8 @@ Originally built as `scripts/shorts_pipeline/` inside a larger marketing-knowled
 The production deployment runs three channels off one shared forehead-source pool — slicing one filming session into ~18 shorts a day across three separate brand identities.
 
 Pull requests welcome. Open an issue first for anything bigger than a one-file change.
+
+
+---
+
+*Built and maintained by [Connor Gallic](https://pr.linkedin.com/in/cgallic) — connect on LinkedIn.*
